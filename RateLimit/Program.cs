@@ -16,8 +16,8 @@ namespace RateLimit
         public static void Main(string[] args)
         {
             var webhost = CreateHostBuilder(args).Build();
-            var IpPolicy = webhost.Services.GetRequiredService<IIpPolicyStore>();
-            IpPolicy.SeedAsync().Wait();
+            //var IpPolicy = webhost.Services.GetRequiredService<IIpPolicyStore>();
+            //IpPolicy.SeedAsync().Wait();
             webhost.Run();
         }
 

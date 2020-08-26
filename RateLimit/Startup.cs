@@ -28,11 +28,25 @@ namespace RateLimit
         public void ConfigureServices(IServiceCollection services)
         {
             // IP Rate limit Configurations
+
+            //services.AddOptions();
+            //services.AddMemoryCache();
+            //services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
+            //services.Configure<IpRateLimitPolicies>(Configuration.GetSection("IpRateLimitPolicies"));
+            //services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            //services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            
+
+            // Client Rate Limit Configurations
+
             services.AddOptions();
             services.AddMemoryCache();
-            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
-            services.Configure<IpRateLimitPolicies>(Configuration.GetSection("IpRateLimitPolicies"));
-            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.Configure<ClientRateLimitOptions>(Configuration.GetSection("ClientRateLimiting"));
+            services.Configure<ClientRateLimitPolicies>(Configuration.GetSection("ClientRateLimitPolicies"));
+            services.AddSingleton<IClientPolicyStore, MemoryCacheClientPolicyStore>();
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
@@ -48,7 +62,8 @@ namespace RateLimit
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseIpRateLimiting();
+            //app.UseIpRateLimiting();
+            app.UseClientRateLimiting();
 
             app.UseHttpsRedirection();
 
